@@ -1,4 +1,6 @@
 from .models import Task, Tag
+from .serializers import TagSerializer, TaskSerializer
+from rest_framework import generics
 
 
 class TaskListView(generics.ListCreateAPIView):
@@ -6,7 +8,7 @@ class TaskListView(generics.ListCreateAPIView):
     serializer_class = TaskSerializer
     
     def get_queryset(self):
-        if self.request.query_param.get('orderby'):
+        if self.request.query_params.get('orderby'):
             super().get_queryset().order_by(self.request.query_params.get('orderby'))
         else:
             return super().get_queryset()
@@ -14,10 +16,11 @@ class TaskListView(generics.ListCreateAPIView):
     def create(self, request, *args, **kwargs):
         request.data._mutable = True
         request.data['assigned_to'] = 'Unknown'
+        return super().create(request)
 
 
 class TaskDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Task.objects.all
+    queryset = Task.objects.all()
     serializer_class = TaskSerializer
 
     def perform_destroy(self, instance):
@@ -25,7 +28,7 @@ class TaskDetailView(generics.RetrieveUpdateDestroyAPIView):
         instance.save()
 
 class TagListView(generics.ListCreateAPIView):
-    queryset = Tag.objects.all
+    queryset = Tag.objects.all()
     serializer_class = TagSerializer
 
 
