@@ -22,6 +22,16 @@
 3. Category(BaseModel)
    - name : CharField
 
+4. PurchaseOrder(BaseModel)
+   - name : Charfield auto generated
+   - completed : Boolean
+   - order_items : o2m -> PurchaseOrderItem
+
+5. PurchaseOrderItem(BaseModel)
+   - item : m2o Item
+   - qty : PositiveInteger
+   - order : m2o -> PurchaseOrder
+
 
 ## Endpoints
 
@@ -37,4 +47,18 @@
 - 'categories/<int:pk>' PUT
 - 'categories/<int:pk>' PATCH
 - 'categories/<int:pk>' DELETE
+- 'purchase_orders/orders' GET
+- 'purchase_orders/orders' POST
+- 'purchase_orders/orders<int:pk>' GET
+- 'purchase_orders/orders<int:pk>' PUT
+- 'purchase_orders/orders<int:pk>' PATCH
+- 'purchase_orders/orders<int:pk>' DELETE
+- 'purchase_orders/order_items' GET
+- 'purchase_orders/order_items' POST
+- 'purchase_orders/order_items<int:pk>' GET
+- 'purchase_orders/order_items<int:pk>' PUT
+- 'purchase_orders/order_items<int:pk>' PATCH
+- 'purchase_orders/order_items<int:pk>' DELETE
+
+
 
