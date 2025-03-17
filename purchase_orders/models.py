@@ -13,6 +13,7 @@ def generate_order_name():
 class PurchaseOrder(BaseModel):
     name = models.CharField(max_length=250, default=generate_order_name, unique=True, editable=False)
     completed = models.BooleanField(default=False, editable=False)
+
     def __str__(self):
         return self.name
 
